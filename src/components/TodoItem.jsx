@@ -1,11 +1,11 @@
 import React from "react";
 
-class TodoItem extends React.Component {
-    render() {
+const TodoItem = (props) => {
+
         var color;
         var text;
 
-        if (this.props.todo.complete === true) {
+        if (props.todo.complete === true) {
             color = 'lightgreen';
             text = 'Complete';
         } else {
@@ -15,22 +15,21 @@ class TodoItem extends React.Component {
 
         return (
             <div className="wrapper" style={{backgroundColor: color}}>
-                <h3>{this.props.todo.name}</h3>
+                <h3>{props.todo.name}</h3>
                 <button
                     className="btn"
-                    onClick={() => this.props.onClick(this.props.todo.id)}>
+                    onClick={() => props.onClick(props.todo.id)}>
                     {text}
                 </button>
                 <button
                     className="btn"
                     onClick={() =>
-                        this.props.onRemoveClick(this.props.todo.id)
+                        props.onRemoveClick(props.todo.id)
                     }>
                     Remove from list
                 </button>
             </div>
         );
-    }
-}
+};
 
 export default TodoItem;

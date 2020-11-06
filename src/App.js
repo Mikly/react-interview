@@ -1,96 +1,89 @@
-import React from 'react';
+import React, {useState}  from 'react';
 import './App.css';
 import TodoItem from './components/TodoItem'
-import SearchBar from './components/SearchBar'
+// import SearchBar from './components/SearchBar'
 
-const todos = [
-    {id: 1, name: 'Go to the supermarket', complete: false},
-    {id: 2, name: 'Call Alice', complete: false},
-    {id: 3, name: 'Ask Alice to call Bob', complete: false},
-    {id: 4, name: 'Do the dishes', complete: false},
-    {id: 5, name: 'Change car tyres', complete: false}
-];
+const App = () => {
 
-class App extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            newTodoName: '',
-            todos: todos
-        };
+    const [todos, setTodos] = useState([
+        {id: 1, name: 'Go to the supermarket', complete: false},
+        {id: 2, name: 'Call Alice', complete: false},
+        {id: 3, name: 'Ask Alice to call Bob', complete: false},
+        {id: 4, name: 'Do the dishes', complete: false},
+        {id: 5, name: 'Change car tyres', complete: false},
+    ]);
+    
+    const [newTodoName, setNewTodoName] = useState("");
+
+    const generateNewId = () => {
+        return todos.length + 1;
     }
 
-    generateNewId() {
-        return this.state.todos.length + 1;
-    }
-
-    onSubmit(event) {
+    const onSubmit=(event) => {
         event.preventDefault();
-
-        var newTodos = this.state.todos.slice();
-        newTodos.push({
-            id: this.generateNewId(),
-            name: this.state.newTodoName,
+        const newTodo = {
+            id:  generateNewId(),
+            name: newTodoName,
             complete: false
-        });
-
-        this.setState({todos: newTodos, newTodoName: ''});
+        }
+        setNewTodoName("");
+        setTodos(todos => [...todos, newTodo]);
     }
 
-    onClick(id) {
-        var todoItems = this.state.todos.slice();
-        for (let i = 0; i < this.state.todos.length; i++) {
-            if (todoItems[i].id === id) {
-                var newComplete = !todoItems[i].complete;
-                todoItems[i].complete = newComplete;
+    // const onInputChange = (event) => {
+    //     setNewTodoName(newTodoName);
+    // }
+
+    const onClick= (id) => {
+        for (let i = 0; i < todos.length; i++) {
+            if (todos[i].id === id) {
+                todos[i].complete = !todos[i].complete;
+                setTodos(todos => [...todos]);
             }
         }
-
-        this.setState({
-            todos: todoItems
-        });
     }
 
-    onChange(event) {
-        this.setState({newTodoName: event.target.value});
-    }
-    onRemoveClick(id) {
-        //implement this logic
-        console.log('Remove Item!');
-    }
-
-    render() {
-        return (
-            <div className="">
-                {this.todoItems()}
-                <SearchBar
-                    onSubmit={this.onSubmit.bind(this)}
-                    newTodoName={this.state.newTodoName}
-                    onInputChange={this.onChange.bind(this)}
-                />
-            </div>
-        );
+    const onRemoveClick = (id) => {
+        for (let i = 0; i < todos.length; i++) {
+            if (todos[i].id === id) {
+                todos.splice(i,1);
+                setTodos(todos => [...todos]);
+            }
+        }
     }
 
-    todoItems = () => {
-        var retVal = [];
-
-        for (let i = 0; i < this.state.todos.length; i++) {
-            var todo = this.state.todos[i];
+    //Lists todoItems in reverse order, just a personal opinion that newest additions should be on top, below submitbar
+    const createTodoList = () => {
+        todos.reverse();
+        const retVal = [];
+        for (let i = 0; i < todos.length; i++) {
+            var todo = todos[i];
             retVal.push(
                 <TodoItem
                     key={todo.id}
                     todo={todo}
-                    onClick={this.onClick.bind(this)}
-                    onRemoveClick={this.onRemoveClick.bind(this)}
+                    onClick={onClick}
+                    onRemoveClick={onRemoveClick}
                 />
             );
         }
-        return retVal;
+        todos.reverse();
+        return retVal;  
     };
+    return (
+        <div className="">
+            <form className="submitWrapper" onSubmit={onSubmit}>
+                <input placeholder="Add new todo" value={newTodoName} onChange={({target}) => setNewTodoName(target.value)}/>
+                <button className="btn btn-submit" type="submit" value="Submit"> Submit </button>
+            </form>
+            {/* <SearchBar
+                    onSubmit={onSubmit}
+                    newTodoName={setNewTodoName}
+                    onInputChange={onInputChange}
+            /> */}
+            {createTodoList()}
+        </div>
+    );
 }
-
-
-
 
 export default App;
