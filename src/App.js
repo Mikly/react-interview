@@ -1,4 +1,5 @@
 import React, {useState}  from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import TodoItem from './components/TodoItem'
 // import SearchBar from './components/SearchBar'
@@ -15,19 +16,16 @@ const App = () => {
     
     const [newTodoName, setNewTodoName] = useState("");
 
-    const generateNewId = () => {
-        return todos.length + 1;
-    }
-
     const onSubmit=(event) => {
         event.preventDefault();
         const newTodo = {
-            id:  generateNewId(),
+            id:  uuidv4(),
             name: newTodoName,
             complete: false
         }
         setNewTodoName("");
         setTodos(todos => [...todos, newTodo]);
+        // console.table(todos)
     }
 
     // const onInputChange = (event) => {
@@ -70,6 +68,7 @@ const App = () => {
         todos.reverse();
         return retVal;  
     };
+    
     return (
         <div className="">
             <form className="submitWrapper" onSubmit={onSubmit}>

@@ -1,5 +1,6 @@
 import React from "react";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faCheck} from '@fortawesome/free-solid-svg-icons'
 const TodoItem = (props) => {
 
         var color;
@@ -16,18 +17,14 @@ const TodoItem = (props) => {
         return (
             <div className="wrapper" style={{backgroundColor: color}}>
                 <h3>{props.todo.name}</h3>
-                <button
-                    className="btn"
-                    onClick={() => props.onClick(props.todo.id)}>
-                    {text}
-                </button>
-                <button
-                    className="btn"
+
+                <FontAwesomeIcon icon={faCheck} 
+                    onClick={() => props.onClick(props.todo.id)}
+                />
+                <FontAwesomeIcon icon={faTrash} 
                     onClick={() =>
-                        props.onRemoveClick(props.todo.id)
-                    }>
-                    Remove from list
-                </button>
+                    props.onRemoveClick(props.todo.id)}
+                />
             </div>
         );
 };
