@@ -34,15 +34,19 @@ h3 {
   margin-top: 12px;
   width: 40px;
 }
-.icon{
+.iconComplete{
   margin-left:4px; 
   margin-right:4px;
 }
-.icon:hover{
+.iconComplete:hover{
   opacity: 0.7;
 }
-
-.btn-submit {
+.iconRemove{
+  margin-left:4px; 
+  margin-right:4px;
+}
+.iconRemove:hover{
+  opacity: 0.7;
 }
 
 .complete {

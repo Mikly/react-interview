@@ -16,10 +16,10 @@ const TodoItem = (props) => {
                 <h3>{props.todo.name}</h3>
             </div>
             <div className={"iconsDiv"}>
-                    <FontAwesomeIcon className ={"icon"} icon={faCheck} 
+                    <FontAwesomeIcon className ={"iconComplete"} icon={faCheck} 
                         onClick={() => props.onClick(props.todo.id)}
                     />
-                    <FontAwesomeIcon className ={"icon"} icon={faTrash} 
+                    <FontAwesomeIcon className ={"iconRemove"} icon={faTrash} 
                         onClick={() => props.onRemoveClick(props.todo.id)}
                     />
                 </div>
