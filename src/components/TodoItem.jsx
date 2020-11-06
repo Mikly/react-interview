@@ -8,21 +8,19 @@ const TodoItem = (props) => {
         style = "complete";
     } else {
         style = "incomplete"
-    }
+    };
 
     return (
         <div className={"todoItem"} >
             <div className={style}>
                 <h3>{props.todo.name}</h3>
-                
             </div>
             <div className={"iconsDiv"}>
                     <FontAwesomeIcon className ={"icon"} icon={faCheck} 
                         onClick={() => props.onClick(props.todo.id)}
                     />
                     <FontAwesomeIcon className ={"icon"} icon={faTrash} 
-                        onClick={() =>
-                        props.onRemoveClick(props.todo.id)}
+                        onClick={() => props.onRemoveClick(props.todo.id)}
                     />
                 </div>
         </div>
