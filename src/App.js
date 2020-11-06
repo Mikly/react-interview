@@ -2,6 +2,8 @@ import React, {useState}  from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 import TodoItem from './components/TodoItem'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons'
 // import SearchBar from './components/SearchBar'
 
 const App = () => {
@@ -55,7 +57,7 @@ const App = () => {
         todos.reverse();
         const retVal = [];
         for (let i = 0; i < todos.length; i++) {
-            var todo = todos[i];
+            const todo = todos[i];
             retVal.push(
                 <TodoItem
                     key={todo.id}
@@ -68,12 +70,18 @@ const App = () => {
         todos.reverse();
         return retVal;  
     };
-    
+
     return (
-        <div className="">
+        <div className="todoListWrapper">
             <form className="submitWrapper" onSubmit={onSubmit}>
-                <input placeholder="Add new todo" value={newTodoName} onChange={({target}) => setNewTodoName(target.value)}/>
-                <button className="btn btn-submit" type="submit" value="Submit"> Submit </button>
+                <div className="submitDiv">
+                    <input placeholder="Add new todo" 
+                        value={newTodoName} onChange={({target}) => setNewTodoName(target.value)}
+                    />
+                    <button className="btn-submit" type="submit" value="Submit">  
+                        <FontAwesomeIcon className ={"icon"} icon={faPaperPlane}/> 
+                    </button>
+                </div>
             </form>
             {/* <SearchBar
                     onSubmit={onSubmit}
